@@ -1,16 +1,33 @@
-import { inquirerMenu, pause }  from './helpers/inquirer.js';
+import { inquirerMenu, pause, readInput }  from './helpers/inquirer.js';
 import colors from 'colors';
 
- console.clear();
+import Tasks from './models/tasks.js';
+
+console.clear();
 
 const main = async() => {
 
     let opt = '';
+    const tasks = new Tasks();
 
     do {
         
         opt = await inquirerMenu();
-        console.log(opt);
+
+        switch (opt) {
+            case '1':
+                const desc = await readInput('Descripción: ');
+                tasks.createTask(desc);
+                console.log(desc);
+                break;
+        
+            case '2':
+                    console.log(tasks.listArr);
+                break;
+        }
+
+       
+        
         await pause();
       
 

@@ -53,7 +53,7 @@ const inquirerMenu = async () => {
 
     console.clear()
     console.log('=========================================='.green)
-    console.log('Seleccione una opción'.green)
+    console.log('Seleccione una opción'.white)
     console.log('==========================================\n'.green)
 
     const { opcion } = await inquirer.prompt(options);
@@ -66,5 +66,25 @@ const pause = async () => {
    
 }
 
+const readInput = async(message) => {
 
-export {inquirerMenu, pause};
+    const question = [{
+        type: 'input',
+        name: 'desc',
+        message,
+        validate(value) {
+            if(value.length === 0) {
+                return 'No se ha ingresado ningun valor!'
+            }
+            return true;
+        }
+    }]
+
+    const {desc } = await inquirer.prompt(question);
+
+    return desc
+
+}
+
+
+export {inquirerMenu, pause, readInput};
