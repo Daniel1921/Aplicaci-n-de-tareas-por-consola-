@@ -18,16 +18,20 @@ class Tasks {
 
     }
 
-    deleteTask( id = '') {
+    deleteTask( id = '') { 
+       
+        console.log({id});
+
         if(this._list[id]) { 
             delete this._list[id];
-        }
+        }        
+
     }
 
     createTask(desc = '') {
 
          const task = new Task(desc);
-         this._list[task.id] = task;
+         this._list[task.id] = task;        
 
     }   
 
@@ -76,7 +80,25 @@ class Tasks {
         
     }
 
+        toggleCompleted(ids = []) {
+            ids.forEach(id => {
+                const task = this._list[id];
+                if(!task.completeIn) {
+                    task.completeIn = new Date().toISOString();
+                }
+
+            })
+            this.listArr.forEach(task => {
+                if( !ids.includes(task.id)) {
+
+                    this._list[task.id].completeIn = null;
+                    
+                }
+            })
+        }
 
 }
+
+
 
 export default Tasks;
